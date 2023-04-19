@@ -12,8 +12,8 @@ import javax.persistence.Id;
 @Document(indexName = "member")
 public class MemberDocument {
 
-    @Id
-    private Long id;
+//    @Id
+//    private Long id;
 
     private String name;
 

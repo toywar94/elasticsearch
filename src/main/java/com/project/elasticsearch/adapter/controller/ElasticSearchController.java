@@ -17,7 +17,7 @@ public class ElasticSearchController {
 
     private final ElasticSearchService elasticSearchService;
 
-    @GetMapping("member")
+    @GetMapping("/member")
     public MemberDocument findMemberByName(@RequestParam String name){
         return elasticSearchService.findMemberByName(name);
     }
