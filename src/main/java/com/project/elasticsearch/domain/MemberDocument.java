@@ -3,7 +3,6 @@ package com.project.elasticsearch.domain;
 import lombok.*;
 import org.springframework.data.elasticsearch.annotations.Document;
 
-import javax.persistence.Id;
 
 @Data
 @Builder
@@ -12,10 +11,9 @@ import javax.persistence.Id;
 @Document(indexName = "member")
 public class MemberDocument {
 
-//    @Id
-//    private Long id;
-
     private String name;
-
+    private Integer salary;
     private Integer age;
+
+//    private String nickName;
 }
