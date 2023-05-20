@@ -1,0 +1,73 @@
+//max
+{
+  "size": 0,
+  "aggs": {
+    "all_age": {
+      "max": {
+        "field": "age"
+      }
+    }
+  }
+}
+//sum
+
+{
+  "size":0,
+  "aggs":{
+    "age":{
+      "sum":{
+        "field":"age"
+      }
+    }
+  }
+}
+//avg
+
+{
+  "size":0,
+  "aggs":{
+    "avg":{
+      "avg":{
+        "field": "age"
+      }
+    }
+  }
+
+}
+//min
+
+{
+  "size":0,
+  "aggs":{
+    "min":{
+      "min":{
+        "field":"age"
+      }
+    }
+  }
+}
+
+//count
+{
+  "size":0,
+  "aggs":{
+    "age_ctn":{
+      "value_count":{
+        "field":"age"
+      }
+    }
+  }
+
+}
+
+//통계 집계
+{
+  "size":0,
+  "aggs":{
+    "age_estats":{
+      "stats":{
+        "field":"age"
+      }
+    }
+  }
+}

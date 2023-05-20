@@ -1,0 +1,60 @@
+//term
+
+//march-all
+{
+  "query":{
+    "match_all":{
+    }
+  }
+}
+//match
+{
+  "query":{
+    "match":{
+      "name":"민재와 친구들"
+    }
+  }
+}
+//multi-match
+{
+  "query":{
+    "multi_match":{
+      "query":"민재",
+      "fields":[
+        "name", "nickName"
+      ]
+    }
+  }
+}
+//must
+{
+  "query":{
+    "bool":{
+      "must":[
+        {
+          "match":{
+            "name":"yemin"
+          }
+        },
+        {
+          "term":{
+            "salary":"200"
+          }
+        }
+      ],
+      "must_not":{
+        "match":{
+          "age":12
+        }
+      }
+    }
+  }
+}
+//wild-card
+{
+  "query":{
+    "wildcard":{
+      "name": "yemi?"
+    }
+  }
+}
