@@ -12,6 +12,9 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHits;
+import org.elasticsearch.search.aggregations.bucket.range.Range;
+import org.elasticsearch.search.aggregations.AggregationBuilders;
+import org.elasticsearch.search.aggregations.metrics.Max;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -113,6 +116,42 @@ public class ElasticSearchRepoImpl implements ElasticSearchRepository {
 
         SearchResponse search = elasticSearchConfig.elasticsearchClient().search(searchRequest, RequestOptions.DEFAULT);
         return mapHits(search.getHits(), MemberDocument.class);
+    }
+
+    @Override
+    public double findMaxAge() throws IOException {
+        SearchRequest searchRequest = createSearchRequest(TEST_INDEX);
+        SearchSourceBuilder searchSourceBuilder = createSearchSourceBuilder();
+//        searchSourceBuilder.size(0);
+
+        searchSourceBuilder.aggregation(AggregationBuilders.max("max_age").field("age"));
+        searchRequest.source(searchSourceBuilder);
+        SearchResponse search = elasticSearchConfig.elasticsearchClient().search(searchRequest, RequestOptions.DEFAULT);
+
+        Max maxAge = search.getAggregations().get("max_age");
+        return maxAge.getValue();
+    }
+
+    @Override
+    public Range findAgeRange(double from, double to) throws IOException {
+        SearchRequest searchRequest = createSearchRequest(TEST_INDEX);
+        SearchSourceBuilder searchSourceBuilder = createSearchSourceBuilder();
+
+        searchSourceBuilder.aggregation(AggregationBuilders.range("range_age").field("age")
+//                .addUnboundedFrom(from)
+                .addRange(from, to)
+//                .addUnboundedFrom(to)
+                );
+
+        searchRequest.source(searchSourceBuilder);
+        SearchResponse searchResponse = reqElasticSearch(searchRequest);
+
+        return searchResponse.getAggregations().get("range_age");
+
+    }
+
+    private SearchResponse reqElasticSearch(SearchRequest searchRequest) throws IOException {
+        return elasticSearchConfig.elasticsearchClient().search(searchRequest, RequestOptions.DEFAULT);
     }
 
     private SearchRequest createSearchRequest(String index){

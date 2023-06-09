@@ -6,6 +6,7 @@ import com.project.elasticsearch.service.outPort.ElasticSearchRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.search.aggregations.bucket.range.Range;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -40,6 +41,14 @@ public class ElasticSearchService {
 
     public List<MemberDocument> findWildCard(String name) throws IOException {
         return elasticSearchRepo.findWildCard(name);
+    }
+
+    public double findMaxAge() throws IOException{
+        return elasticSearchRepo.findMaxAge();
+    }
+
+    public Range findAgeRange(double from, double to) throws IOException{
+        return elasticSearchRepo.findAgeRange(from, to);
     }
 
 }

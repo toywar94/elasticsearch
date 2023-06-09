@@ -5,7 +5,7 @@ import com.project.elasticsearch.service.ElasticSearchService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.search.SearchHits;
+import org.elasticsearch.search.aggregations.bucket.range.Range;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -52,6 +52,17 @@ public class ElasticSearchController {
     @GetMapping("/wild-card")
     public List<MemberDocument> findWildCard(@RequestParam String name) throws IOException {
         return elasticSearchService.findWildCard(name);
+    }
+
+    @GetMapping("/aggs/age/max")
+    public double findMaxAge() throws IOException {
+        return elasticSearchService.findMaxAge();
+    }
+
+    @GetMapping("/aggs/age/range")
+    public Range findAgeRange(@RequestParam double from,
+                              @RequestParam double to) throws IOException {
+        return elasticSearchService.findAgeRange(from, to);
     }
 
 }

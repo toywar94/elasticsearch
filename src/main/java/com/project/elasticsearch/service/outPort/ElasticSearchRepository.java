@@ -2,6 +2,7 @@ package com.project.elasticsearch.service.outPort;
 
 import com.project.elasticsearch.domain.MemberDocument;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.search.aggregations.bucket.range.Range;
 
 import java.io.IOException;
 import java.util.List;
@@ -19,4 +20,8 @@ public interface ElasticSearchRepository {
     List<MemberDocument> findMust(String name, Integer age, Integer salary) throws IOException;
 
     List<MemberDocument> findWildCard(String name) throws IOException;
+
+    double findMaxAge() throws IOException;
+
+    Range findAgeRange(double from, double to) throws IOException;
 }

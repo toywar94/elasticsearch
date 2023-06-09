@@ -58,3 +58,15 @@
     }
   }
 }
+
+//aggs/max
+{
+  "size": 0,
+  "aggs": {
+    "max_age": {
+      "max": {
+        "field": "age"
+      }
+    }
+  }
+}
