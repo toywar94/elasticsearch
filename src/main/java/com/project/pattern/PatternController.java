@@ -23,4 +23,9 @@ public class PatternController {
     public void observer(){
         patternService.observer();
     }
+
+    @GetMapping("/decorator")
+    public void decorator(){
+        patternService.decorator();
+    }
 }
