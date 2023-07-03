@@ -31,6 +31,7 @@ public class ElasticSearchRepoImpl implements ElasticSearchRepository {
 
     private final WebClientConfig webClientConfig;
     private final ElasticSearchConfig elasticSearchConfig;
+    private final MemberRepo memberRepo;
 
     private static final String TEST_INDEX = "test";
     private static final String TEST2_INDEX = "test2";
@@ -40,13 +41,15 @@ public class ElasticSearchRepoImpl implements ElasticSearchRepository {
 
     @Override
     public List<MemberDocument> findMemberByName(String name) throws IOException {
-        SearchRequest searchRequest = createSearchRequest(TEST_INDEX.toString());
-        SearchSourceBuilder searchSourceBuilder = createSearchSourceBuilder();
-        searchSourceBuilder.query(QueryBuilders.termQuery("name", name));
-        searchRequest.source(searchSourceBuilder);
+//        SearchRequest searchRequest = createSearchRequest(TEST_INDEX.toString());
+//        SearchSourceBuilder searchSourceBuilder = createSearchSourceBuilder();
+//        searchSourceBuilder.query(QueryBuilders.termQuery("name", name));
+//        searchRequest.source(searchSourceBuilder);
+//
+//        SearchResponse search = elasticSearchConfig.elasticsearchClient().search(searchRequest, RequestOptions.DEFAULT);
+//        return mapHits(search.getHits(), MemberDocument.class);
 
-        SearchResponse search = elasticSearchConfig.elasticsearchClient().search(searchRequest, RequestOptions.DEFAULT);
-        return mapHits(search.getHits(), MemberDocument.class);
+        return memberRepo.findByName(name);
 
     }
 
