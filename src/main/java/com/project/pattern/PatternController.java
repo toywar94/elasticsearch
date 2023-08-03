@@ -28,4 +28,9 @@ public class PatternController {
     public void decorator(){
         patternService.decorator();
     }
+
+    @GetMapping("/component")
+    public void component(){
+        patternService.component();
+    }
 }

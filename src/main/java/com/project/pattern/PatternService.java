@@ -1,5 +1,9 @@
 package com.project.pattern;
 
+import com.project.pattern.component.DefaultItem;
+import com.project.pattern.component.Inventory;
+import com.project.pattern.component.Item;
+import com.project.pattern.component.ItemBag;
 import com.project.pattern.decorator.Door;
 import com.project.pattern.decorator.Navigation;
 import com.project.pattern.decorator.Size;
@@ -76,5 +80,31 @@ public class PatternService {
         benz = new Wheel(benz);
         System.out.println(benz.getDescription() + " $" + benz.cost());
 
+    }
+
+    public void component(){
+        Inventory inventory = new Inventory();
+        Item longSword = new DefaultItem(1000, "긴 검");
+        inventory.addItem(longSword);
+
+        ItemBag beginnerBag = new ItemBag(120, "모험자의 가방");
+        Item rareSword = new DefaultItem(600, "레어 검");
+        Item uniqueSword = new DefaultItem(1200, "유니크 검");
+        Item rarePant = new DefaultItem(500, "레어 바지");
+
+        beginnerBag.addItem(rareSword);
+        beginnerBag.addItem(uniqueSword);
+        beginnerBag.addItem(rarePant);
+
+        System.out.println("롱소드의 가격 : " + getPrice(longSword));
+        System.out.println("모험자의 가방과 내부 아이템들의 가격 :  " + getPrice(beginnerBag));
+        System.out.println("인벤토리 아이템 가격의 총 함계 : " + inventory.getAllPrice());
+
+        beginnerBag.removeItem(rarePant);
+        System.out.println("모험자의 가방과 내부 아이템들의 가격 - Pant :  " + getPrice(beginnerBag));
+    }
+
+    private static int getPrice(Item item){
+        return item.getPrice();
     }
 }
