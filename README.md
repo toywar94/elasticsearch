@@ -1,6 +1,6 @@
 # skill-practice
 1. elasticsearch
-2. docker (예정)
+
 ##기술 실습 repo
 ### 1. elastic-search (진행중)
 #### API
